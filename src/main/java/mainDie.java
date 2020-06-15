@@ -1,22 +1,22 @@
-public class mainDie {
-    public static void main(String[] args) {
 
-        Die die6 = new Die(6);
-        try {
-            die6.roll();
-        }catch (NullPointerException e){}
+public class mainDie {
+    public static void main(String[] args) throws Exception {
+
+        Die die = new Die(6);
+        die.roll();
+
+
+        System.out.println("Six sided die returns "+die.value);
 
         Die die20 = new Die(20);
-        try {
-            die20.roll();
-        }catch (NullPointerException e){}
-
+        die20.roll();
+        System.out.println("Twenty sided die returns "+die20.value);
 
         Die dieDodgy6 = new Die(6,new int[]{1,1,1,1,1,2});
         dieDodgy6.roll();
+        System.out.println("Weighted dice returns "+dieDodgy6.value);
 
-        System.out.println(die6.value); // this would print a number between 1 and 6 inclusive
-        System.out.println(die20.value); // this would print a number between 1 and 20 inclusive
-        System.out.println(dieDodgy6.value); // this would print a number between 1 and 6 inclusive with greater odds of appearance
+        DieFactory die3 = new DieFactory();
+        System.out.println("DiceFactory die: "+die3.makeDie(20));
     }
 }

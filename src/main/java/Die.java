@@ -1,20 +1,24 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.Random;
 
 public class Die {
+    private static final Logger logger = LogManager.getLogger(mainDie.class.getName());
     private int[] probabilities;
     public int value;
+    Random r = new Random();
+    double random = Math.random();
     private final int sides;
 
-    Random random = new Random();
     public Die(int sides) {
         this.sides = sides;
     }
 
-    public Die(int sides, int[] probabilities) {
+    public Die(int sides, int... probabilities) {
         this.sides = sides;
         this.probabilities = probabilities;
     }
-    public void setProbabilities() {
+    private void setProbabilities(int[] probabilities){
         if (probabilities.length == sides){
             int sum = 0;
             for (int probability : probabilities) {
@@ -34,7 +38,12 @@ public class Die {
         }
     }
     public void roll() {
-        value = random.nextInt(sides) +1;
-        setProbabilities();
+        value = r.nextInt(sides )+1;
+        try {
+            setProbabilities(probabilities);
+        }catch (NullPointerException e){
+
+            logger.error(""+e);}
     }
+
 }
